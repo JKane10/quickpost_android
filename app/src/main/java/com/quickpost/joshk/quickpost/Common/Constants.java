@@ -2,6 +2,8 @@ package com.quickpost.joshk.quickpost.Common;
 
 /**
  * Created by GIGABYTE-U on 9/30/2017.
+ *
+ * A place for constants. Everyone needs a home.
  */
 
 public interface Constants {

@@ -2,13 +2,12 @@ package com.quickpost.joshk.quickpost;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
+import com.quickpost.joshk.quickpost.Models.Message;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +17,8 @@ import java.util.List;
 
 /**
  * Created by GIGABYTE-U on 9/30/2017.
+ *
+ * Adapter for binding the message objects to the recylcerview
  */
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
@@ -26,16 +27,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     private List<Message> messageList = new ArrayList<>();
 
     public MessageAdapter(Context context, Object response) {
-        if (response instanceof VolleyError){
+        if (response instanceof Exception){
 
         } else if (response instanceof String){
             try {
                 JSONArray jArray = new JSONArray(response.toString());
-                for(int i = 0; i < jArray.length(); i++){
+                for(int i = jArray.length() - 1; i >= 0; i--){
                     JSONObject jo = jArray.getJSONObject(i);
                     messageList.add(new Message(jo.get("msg").toString(), jo.get("user").toString(), jo.get("receivedTS").toString()));
                 }
-                String a = "";
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -76,5 +76,4 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
             message.setText(msg.getMsg());
         }
     }
-
 }
